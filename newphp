@@ -1,0 +1,27 @@
+<?php
+$servername = "172.18.0.2"; 
+$username = "root"; 
+$password = "eon123"; 
+$dbname = "Redlock"; 
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn) {
+  die("Koneksi gagal: " . mysqli_connect_error());
+}
+
+$sql = "SELECT COUNT(*) as total FROM users";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  echo "<ul>";
+  while($row = mysqli_fetch_assoc($result)) {
+    echo "<li>Total user: " . $row["total"] . "</li>";
+  }
+  echo "</ul>";
+} else {
+  echo "0 results";
+}
+
+mysqli_close($conn);
+?>
